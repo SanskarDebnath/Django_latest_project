@@ -65,4 +65,10 @@ def logout_page(request):
     return redirect ('/allibaba/login')
 
 
+def forget_password (request):
+    return render (request, 'forget_password.html')
+
+def change_password (request):
+    return render(request, 'change_password.html')
+
 # task : change password button in dashboard.html (ref set_password)
