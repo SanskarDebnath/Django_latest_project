@@ -65,4 +65,4 @@ def logout_page(request):
     return redirect ('/allibaba/login')
 
 
-# task : change password button in dashboard.html
+# task : change password button in dashboard.html (ref set_password)
