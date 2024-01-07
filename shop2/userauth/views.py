@@ -68,7 +68,16 @@ def logout_page(request):
 def forget_password (request):
     return render (request, 'forget_password.html')
 
-def change_password (request):
-    return render(request, 'change_password.html')
+
+
+# change password
+def change_password (request,username):
+    COD_black = User.objects.get(username = username)
+    print("cod_blacK", COD_black)
+    context = {"change_passw" : COD_black}
+    print(context)
+    return render (request, 'change_password.html', context)
+    
+    
 
 # task : change password button in dashboard.html (ref set_password)

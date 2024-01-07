@@ -41,7 +41,8 @@
       </table>
 
       <a href="/allibaba/logout">Logout</a><br>
-      <a href="/allibaba/change_password">Change Password</a>
+      <a href="{% url 'change-password' username=user.username %}">Change Password</a>
+
       
 
 {% else %}
