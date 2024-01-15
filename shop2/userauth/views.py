@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+
 # django.contrib.auth.models built in package
 
 
@@ -71,13 +73,28 @@ def forget_password (request):
 
 
 # change password
-def change_password (request,username):
-    COD_black = User.objects.get(username = username)
-    print("cod_blacK", COD_black)
-    context = {"change_passw" : COD_black}
-    print(context)
-    return render (request, 'change_password.html', context)
-    
-    
+def change_password(request, username):
+    COD_black = User.objects.get(username=username)
+    context = {"change_passw": COD_black}
 
-# task : change password button in dashboard.html (ref set_password)
+    if request.method == "POST":
+        old_password = request.POST.get("old_passw")
+        new_password = request.POST.get("new_passw")
+        con_password = request.POST.get("con_passw")
+
+        if old_password and new_password == con_password:
+            user = authenticate(username=username, password=old_password)
+
+            if user is not None:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, "Password updated successfully")
+            else:
+                messages.error(request, "Incorrect old password")
+        else:
+            messages.error(request, "New password and confirmation do not match")
+
+    return render(request, 'change_password.html', context)
+
+
+

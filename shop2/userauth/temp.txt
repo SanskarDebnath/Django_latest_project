@@ -1,0 +1,28 @@
+def change_password (request,username):
+    COD_black = User.objects.get(username = username)
+    context = {"change_passw" : COD_black}
+    
+    if request.method == "POST":
+        old_password = request.POST.get("old_passw")
+        new_password = request.POST.get("new_passw")
+        con_password = request.POST.get("con_passw")
+        
+        
+        COD_black = authenticate(username = COD_black, password = old_password)
+        
+        
+        if COD_black is not None:
+            print("debugged")
+            COD_black.set_password = new_password
+            
+            COD_black.save()
+            messages.success(request,"password Updated successfully")
+            # return redirect('/allibaba/showprod')
+        
+        else:
+            messages.error(request,"error encounterd")
+        
+    
+    return render (request, 'change_password.html', context)
+    
+   
