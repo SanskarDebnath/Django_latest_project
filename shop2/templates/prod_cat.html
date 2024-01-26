@@ -1,0 +1,15 @@
+{% extends "navbar.html" %}
+{% block title %}Products Catagory{% endblock title %}
+{% block body%}
+<form action="" method="post" enctype="multipart/form-data">
+    <!--=================================to prevent cross sight request forgery[jali note(taka)] we need to add csrf token. 
+        It is a unique token given to every client by the server on a per request basis, so that 
+        server may identify each individual request from an authenticate client. ====================================-->
+
+    {% csrf_token %}
+
+    {{my_form.as_p}}
+<button type="submit" class = "btn btn-primary">Save</button>
+</form>
+
+{% endblock body%}

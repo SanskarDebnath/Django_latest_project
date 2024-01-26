@@ -15,5 +15,6 @@ urlpatterns = [
     path ('addproduct/', views.add_product),
     path ('showprod/', views.viewall),
     path ('editorder/<int:pid>/', views.editorder, name='edit-order'),
-    path ('deleteorder/<int:pid>/', views.deleteorder, name='delete-order')
+    path ('deleteorder/<int:pid>/', views.deleteorder, name='delete-order'),
+    path ('prod_cat/', views.prod_cat, name='product-catagory')
 ]

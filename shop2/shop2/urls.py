@@ -16,6 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+#added for media uploaded
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +29,4 @@ urlpatterns = [
     path('allibaba/', include('userauth.url_auth'))
     # path('', include('product.url_product'))
     
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

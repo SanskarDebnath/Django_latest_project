@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from product.models import Product
-
+from . import forms #. means current folder
 
 #for messages framework
 from django.contrib import messages
@@ -84,3 +84,17 @@ def deleteorder (request, pid):
     messages.warning(request,"Data deleted")
     return redirect ('/showprod')
     # return  render (request, 'edit_product.html')
+    
+def prod_cat (request):
+    
+    #print(myform)
+    if request.method == "POST":
+        form = forms.ProductCategoryForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "your file has been uploaded")
+            return redirect('product-catagory')
+
+    
+    myform = forms.ProductCategoryForm()
+    return render (request, 'prod_cat.html',{'my_form':myform})
