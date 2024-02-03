@@ -1,0 +1,49 @@
+{% extends "navbar.html"%}
+
+{% block body %}
+
+{%if prodcat_list%}
+
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>sl no</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for data in prodcat_list%}
+        <tr>
+            <td>
+                {{forloop.counter}}<!--loop counter used as sl. no.-->
+            </td>
+            <td>
+                {{data.p_cat_name}}
+            </td>
+            <td>{{data.p_cat_desc}}</td>
+            <td>
+                {% if data.p_cat_image %}
+                    <img src="{{data.p_cat_image.url}}" alt='..'>
+                {% else %}
+                    No image uploaded
+                {% endif %}
+            </td>
+            <td>
+                 <a class = "btn btn-primary" href = "{% url 'edit-prodcat' data.id %}">edit</a>
+                <a class = "btn btn-primary" href = "{% url 'delete-prodcat' data.id %}">Delete</a> 
+            </td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{% else %}
+
+No product category found
+
+{% endif %}
+
+{% endblock body %}

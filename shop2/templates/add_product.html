@@ -1,26 +1,37 @@
 {% extends "navbar.html" %}
 {% block title %}Add Products{% endblock title %}
 {% block body%}
-<form action="" method="post">
-    <!--=================================to prevent cross sight request forgery[jali note(taka)] we need to add csrf token. 
-        It is a unique token given to every client by the server on a per request basis, so that 
-        server may identify each individual request from an authenticate client. ====================================-->
 
+<div class="container mt-5">
+  <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-<div class="input-group flex-nowrap">
-<fieldset>
-<input type="text" name="p_name" id="p_name"><br>
+    
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="category">Product Category</label>
+      <select class="form-select" id="category" name="category">
+        {% for category in categories %}
+          <option value="{{ category.p_cat_name }}">{{ category.p_cat_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="p_name-addon">Product Name</span>
+      <input type="text" class="form-control" id="p_name" name="p_name" placeholder="Enter product name" aria-label="Product Name" aria-describedby="p_name-addon">
+    </div>
 
-<textarea name="p_desc" id="p_desc"></textarea><br>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="p_desc-addon">Description</span>
+      <textarea class="form-control" id="p_desc" name="p_desc" placeholder="Enter product description" aria-label="Product Description" aria-describedby="p_desc-addon"></textarea>
+    </div>
 
-<input type="text" name="price" id="price"><br>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="price-addon">₹</span>
+      <input type="text" class="form-control" id="price" name="price" placeholder="Enter product price" aria-label="Product Price" aria-describedby="price-addon">
+    </div>
 
-<input type="submit" name="submit" id="submit" value="Save">
-
-{% comment %} <input type="text" name="P_name" id="p_name"><br> {% endcomment %}
-    </fieldset>
-</form>
-
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
 </div>
 
 {% endblock body%}

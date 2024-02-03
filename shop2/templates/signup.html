@@ -1,38 +1,48 @@
-<html>
-    <head></head>
+{% extends "navbar.html" %}
+{% block title %}Add Products{% endblock title %}
+{% block body%}
 
-<body>
-    <center>
-<form action="" method="post">
-
+<div class="container mt-5">
+  <form action="" method="post">
     {% csrf_token %}
+    
+    <fieldset>
+      <legend><h4 class="mb-4">Add New Product</h4></legend>
 
-<fieldset>
-<h4>Username</h4>
-<input type="text" name="uname" id="uname"><br>
+      <div class="mb-3">
+        <label for="uname" class="form-label">Username</label>
+        <input type="text" class="form-control" id="uname" name="uname">
+      </div>
 
+      <div class="mb-3">
+        <label for="fname" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="fname" name="fname">
+      </div>
 
-<h4>First Name</h4>
-<input type="text" name="fname" id="fname"><br>
+      <div class="mb-3">
+        <label for="lname" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lname" name="lname">
+      </div>
 
-<h4>Last Name</h4>
-<input type="text" name="lname" id="lname"><br>
+      <div class="mb-3">
+        <label for="passw" class="form-label">Password</label>
+        <input type="password" class="form-control" id="passw" name="passw">
+      </div>
 
-<h4>Password</h4>
-<input type="password" name="passw" id="passw"><br>
+      <div class="mb-3">
+        <label for="confirm_pass" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_pass" name="confirm_pass">
+      </div>
 
-<h4>Confirm Password</h4>
-<input type="password" name="confirm_pass" id="confirm_pass"><br>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
 
-<h4>Email</h4>
-<input type="email" name="email" id="email"><br>
-
-
-
-<input type="submit" name="submit" id="submit" value="Save">
-
+      <button type="submit" class="btn btn-primary">Save</button>
     </fieldset>
-</form>
-</center>
-</body>
-</html>
+
+  </form>
+</div>
+
+{% endblock body%}

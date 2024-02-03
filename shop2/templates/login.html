@@ -1,47 +1,49 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
+{% extends "navbar.html" %}
+{% block title %}Add Products{% endblock title %}
+{% block body%}
+  <body class="bg-light">
 
     {% if messages %}
     {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">  <!-- class="alert alert-warning will change depending upon msg type-->
-    
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
         <strong>{{ message }}</strong> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     {% endfor %}
     {% endif %}
 
-    <center>
-        <form action="" method="post">
-        
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form action="" method="post" class="bg-white p-4 shadow rounded">
             {% csrf_token %}
-        
-        <fieldset>
-        <h4>Enter the Username</h4>
-        <input type="text" name="uname" id="uname"><br>
-        
-        
-        
-        <h4>Enter the Password</h4>
-        <input type="password" name="passw" id="passw"><br>
-        
-        
-        
-        
-        
-        <input type="submit" name="submit" id="submit" value="Save"><br>
-        <a href="/allibaba/forget_password">Forgot Password</a>
-        
+            
+            <fieldset>
+              <legend><h4 class="mb-4 text-center">Login</h4></legend>
+
+              <div class="mb-3">
+                <label for="uname" class="form-label">Username</label>
+                <input type="text" class="form-control" id="uname" name="uname">
+              </div>
+
+              <div class="mb-3">
+                <label for="passw" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passw" name="passw">
+              </div>
+
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="/allibaba/forget_password" class="ml-2">Forgot Password</a>
+              </div>
+
             </fieldset>
-        </form>
-        </center>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
-</html>
+
+{% endblock body%}
