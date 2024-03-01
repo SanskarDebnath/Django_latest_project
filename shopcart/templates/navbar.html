@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style>
+    .circular_image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: white;
+      display:inline-block;
+      vertical-align:middle;
+    }
+    .circular_image img{
+      width:100%;
+    }
+  </style>
+  </head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      
+      <div class="circular_image">
+        <img src="/static/images/sc.png"/>
+      </div>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/shopcart/home"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          {% if user.is_authenticated and user.is_staff %}
+          {% comment %} <li class="nav-item">
+            <a class="nav-link" href="/shopcart/addproduct"><i class="fa-solid fa-plus"></i> Add Product</a>
+          </li> {% endcomment %}
+          {% endif %}
+          {% comment %} <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-pen-ruler"></i> Products
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/shopcart/mobile"><i class="fa-solid fa-mobile"></i> Mobile</a></li>
+              <li><a class="dropdown-item" href="/shopcart/garments"><i class="fa-solid fa-shirt"></i> Grments</a></li>
+            </ul>
+          </li> {% endcomment %}
+          
+    
+          
+        
+          {% if user.is_authenticated %}
+          {% if user.is_staff %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="/shopcart/showprod"><i class="fa-solid fa-eye"></i> show product</a>
+          </li>
+
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-list"></i> Products
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/shopcart/prod_cat">Add category</a></li>
+              <li><a class="dropdown-item" href="/shopcart/showprodcat">Show category</a></li>
+              <li class="dropdown-item">
+                <a class="nav-link" href="/shopcart/addproduct"><i class="fa-solid fa-plus"></i> Add Product</a>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user"></i> {{user.username}}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/shopcart/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+              <li><a class="dropdown-item" href="{% url 'change-password' %}">Change Password</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/shopcart/cartpage/">Cart <i class="fa-solid fa-cart-shopping"></i><span id="cartqty">{{mycart|length}}</span></a>
+          </li>
+          {% else %}
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/shopcart/login">Log in</a>
+          </li>
+
+                    
+          <li class="nav-item">
+            <a class="nav-link" href="/shopcart/signup">Sign Up</a>
+          </li>
+
+          {% endif %}
+
+        </ul>
+       
+        <form class="d-flex" role="search" action="{%url 'search'%}" method="POST">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_area">
+          <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+  
+<!-- ======== the alert box ========= -->
+{% if messages %}
+{% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">  <!-- class="alert alert-warning will change depending upon msg type-->
+
+    <strong>{{ message }}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+{% endif %}
+<!-- ========= end alert ============= -->
+
+<!--==========================================BODY BLOCK=============================================-->
+{% block body%}
+
+{% endblock body%}
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+    
+
+</body>
+
+</html>
+
+
+ 

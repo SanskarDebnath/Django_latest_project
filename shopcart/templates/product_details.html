@@ -1,0 +1,118 @@
+{% extends "navbar.html" %}
+{% block title %}Shopcart || Product Details{% endblock title %}
+{% block body %}
+
+{% if prod_list %}
+    {% for data in prod_list %}
+   
+    <div class="container mt-5">
+      <div class="row">
+        
+        <div class="col-md-6">
+          
+          <img src="/{{ data.product_image }}" alt="Product Image" class="img-fluid product-image" style="max-width: 300px; height: auto;">
+        </div>
+        
+        <div class="col-md-6">
+          <h2 class="font-weight-bold">{{ data.product_name }}</h2>
+
+          <p class="text-muted">Category: {{data.p_cat_name}}</p>
+
+          <h3 class="lead font-weight-bold">₹ {{ data.product_price }}</h3>
+          <p>{{ data.product_description }}</p>
+
+          <div class="form-group">
+            <label for="size" class="font-weight-bold">Select Size:</label>
+            <select class="form-control" id="size">
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          
+          <!-- Add a field for entering quantity -->
+          <div class="form-group">
+            <label for="quantity" class="font-weight-bold">Enter Quantity:</label>
+            <input type="number" class="form-control" id="quantity" value="1" min="1">
+          </div>
+          <div class="container mt-5">
+          <a><button href="/shopcart/cartpage/" class="btn btn-danger mr-2 btnAddCart" data-pid="{{data.product_id}}">Add to Cart</button></a>
+          <button href="" class="btn btn-success">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product Description -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h4 class="font-weight-bold">Product Description</h4>
+          <p>{{ data.product_description }}</p>
+        </div>
+      </div>
+
+      {% endfor %}
+      {% else %}
+          <p>No products found</p>
+      {% endif %}
+
+      <!-- Rating and Review Section -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h3 class="font-weight-bold">Rating & Reviews</h3>
+          
+          <div class="mb-2">
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span class="ml-2 font-weight-bold">4.0</span>
+          </div>
+          
+          <div>
+            <p><strong>User1:</strong> Excellent product! I love it.</p>
+            <p><strong>User2:</strong> Not bad, but could be better.</p>
+          </div>
+          
+          <form>
+            <div class="form-group">
+              <label for="review" class="font-weight-bold">Add Your Review:</label>
+              <textarea class="form-control" id="review" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Similar Products -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h3 class="font-weight-bold">Similar Products</h3>
+        </div>
+      </div>
+
+    
+ 
+
+<script>
+  $(document).ready(function () {
+    $('.btnAddCart').click(function () {
+      {% comment %} window.alert("id = " + $(this).data('pid')); {% endcomment %}
+      window.alert("Do you want to add this item into cart?");
+      $.ajax({
+        url: "{% url 'addcart' %}",
+        type: "POST",
+        data: {
+          product_id: $(this).data('pid'),
+          product_qty: $('#quantity').val(),
+          csrfmiddlewaretoken: '{{csrf_token}}'
+        },
+        dataType: 'json',
+        success: function (response) {
+          $('#cartqty').html(response.qty);
+        }
+      })
+    });
+  });
+</script>
+
+{% endblock body %}

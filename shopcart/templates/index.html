@@ -1,0 +1,93 @@
+
+{% extends "navbar.html" %}
+{% block title %}Shopcart {% endblock title %}
+{% block body %}
+<style>
+.carousel-img {
+  height: 400px;
+  object-fit: cover;
+}
+</style>
+
+<div class="container-fluid">
+  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"> 
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/media/images/phone.jpg" class="d-block w-100 carousel-img" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/media/images/fashion.jpg" class="d-block w-100 carousel-img" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/media/images/mac.jpg" class="d-block w-100 carousel-img" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/media/images/tab.jpg" class="d-block w-100 carousel-img" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/media/images/bag.jpg" class="d-block w-100 carousel-img" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="text-center mb-4">
+    <h3>Item Categories</h3>
+  </div>
+</div>
+<div class="row mt-4">
+  {% for category in category_list %}
+      <div class="col-md-4">
+          <div class="card" style="height: 90%;">
+              <a href="{% url 'showitemsbycat' category.id %}">
+                  <img src="{{category.p_cat_image.url}}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body" style="height: 200px;"> 
+                  <h5 class="card-title">{{category.p_cat_name}}</h5>
+                  <p class="card-text">{{category.p_cat_desc}}</p>
+                  <a href="" class="btn btn-success">Shop Now</a>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
+
+
+  </div>
+</div>
+<footer class="bg-dark text-light">
+  <div class="container py-4">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Contact Us</h5>
+              <p>Email: info@example.com</p>
+              <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="col-md-4">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact Us</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4">
+              <h5>Follow Us</h5>
+              <a href="#" class="text-light"><i class="fab fa-facebook-square fa-2x mr-3"></i></a>
+              <a href="#" class="text-light"><i class="fab fa-twitter-square fa-2x mr-3"></i></a>
+              <a href="#" class="text-light"><i class="fab fa-instagram-square fa-2x"></i></a>
+          </div>
+      </div>
+  </div>
+</footer>
+{% endblock body %}

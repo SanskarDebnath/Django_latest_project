@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Category List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Animation for table rows */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Styling the table */
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .table img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* Add your custom styles here */
+
+        /* Example: Icon styles */
+        .action-icons a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% if prodcat_list %}
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>Sl. No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in prodcat_list %}
+            <tr style="animation: fadeIn 0.5s ease;">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ data.p_cat_name }}</td>
+                <td>{{ data.p_cat_desc }}</td>
+                <td>
+                    {% if data.p_cat_image %}
+                        <img src="{{ data.p_cat_image.url }}" alt="{{ data.p_cat_name }}">
+                    {% else %}
+                        No image uploaded
+                    {% endif %}
+                </td>
+                <td class="action-icons">
+                    <a class="btn btn-primary" href="{% url 'edit-prodcat' data.id %}"><i class="fas fa-edit"></i> Edit</a>
+                    <a class="btn btn-danger" href="{% url 'delete-prodcat' data.id %}"><i class="fas fa-trash"></i> Delete</a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No product categories found.</p>
+    {% endif %}
+</div>
+
+<!-- Include Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</body>
+</html>

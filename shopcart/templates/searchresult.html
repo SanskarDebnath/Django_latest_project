@@ -1,0 +1,37 @@
+{% extends "navbar.html" %}
+{% block title %}Shopcart || Search Result{% endblock title %}
+{% block body %}
+
+
+
+{% if seach_result %}
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>sl no</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                {% comment %} <th>Action</th> {% endcomment %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in seach_result %}
+                <tr>
+                    <td>{{ data.product_id }}</td>
+                    <td>{{ data.product_name }}</td>
+                    <td>{{ data.product_description }}</td>
+                    <td>{{ data.product_price }}</td>
+                    {% comment %} <td>
+                        <a class="btn btn-primary" href="{% url 'edit-order' data.product_id %}">edit</a>
+                        <a class="btn btn-primary" href="{% url 'deleteprodlistbycat' data.product_id %}">Delete</a>
+                    </td> {% endcomment %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No products found</p>
+{% endif %}
+
+{% endblock body %}

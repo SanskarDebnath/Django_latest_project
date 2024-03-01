@@ -1,0 +1,43 @@
+
+{% extends "navbar.html" %}
+{% block title %}Shopcart || Add Products{% endblock title %}
+{% block body%}
+
+<div class="container mt-5">
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="category">Product Category</label>
+      <select class="form-select" id="category" name="category">
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.p_cat_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="p_name-addon">Product Name</span>
+      <input type="text" class="form-control" id="p_name" name="p_name" placeholder="Enter product name" aria-label="Product Name" aria-describedby="p_name-addon">
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="p_desc-addon">Description</span>
+      <textarea class="form-control" id="p_desc" name="p_desc" placeholder="Enter product description" aria-label="Product Description" aria-describedby="p_desc-addon"></textarea>
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="price-addon"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+      <input type="text" class="form-control" id="price" name="price" placeholder="Enter product price" aria-label="Product Price" aria-describedby="price-addon">
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="price-addon"><i class="fa-solid fa-file"></i></span>
+      <input type="file" class="form-control" id="product_image" name="product_image">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+
+{% endblock body%}

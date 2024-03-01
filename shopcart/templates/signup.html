@@ -1,0 +1,49 @@
+
+{% extends "navbar.html" %}
+{% block title %}shopcart || Sign up{% endblock title %}
+{% block body%}
+
+<div class="container mt-5">
+  <form action="" method="post">
+    {% csrf_token %}
+    
+    <fieldset>
+      <legend><h4 class="mb-4"><i class="fa-solid fa-user-plus"></i> Sign Up</h4></legend>
+
+      <div class="mb-3">
+        <label for="uname" class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+        <input type="text" class="form-control" id="uname" name="uname">
+      </div>
+
+      <div class="mb-3">
+        <label for="fname" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="fname" name="fname">
+      </div>
+
+      <div class="mb-3">
+        <label for="lname" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lname" name="lname">
+      </div>
+
+      <div class="mb-3">
+        <label for="passw" class="form-label"><i class="fa-solid fa-lock"></i> Password</label>
+        <input type="password" class="form-control" id="passw" name="passw">
+      </div>
+
+      <div class="mb-3">
+        <label for="confirm_pass" class="form-label"><i class="fa-solid fa-unlock"></i> Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_pass" name="confirm_pass">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label"><i class="fa-solid fa-envelope"></i> Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+
+      <button type="submit" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+    </fieldset>
+
+  </form>
+</div>
+
+{% endblock body%}
